@@ -1,4 +1,5 @@
 import levelOne from './utils/level-one.json'
+import Card from './components/card'
 
 function App() {
 	return (
@@ -12,12 +13,7 @@ function App() {
 			<div className='container grid grid-cols-5 gap-4 py-space-2xl'>
 				{levelOne && levelOne.length > 0 ? (
 					levelOne.map((card, index) => (
-						<img
-							key={index}
-							className='col-span-1 rounded-badge'
-							src={card.src}
-							alt={`Image ${index + 1}`}
-						/>
+						<Card key={index} src={card.src} level={card.level} />
 					))
 				) : (
 					<p>No images available</p>

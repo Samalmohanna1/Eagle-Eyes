@@ -13,7 +13,10 @@ async function generateJsonForDirectory(directory, relativeDir) {
 			.filter((file) =>
 				imageExtensions.includes(path.extname(file).toLowerCase())
 			)
-			.map((file) => ({ src: path.posix.join(relativeDir, file) }))
+			.map((file) => ({
+				src: file,
+				level: path.basename(directory), // Add the directory name as level
+			}))
 
 		const outputJson = path.join(
 			outputDir,
@@ -40,8 +43,7 @@ async function processAllSubdirectories() {
 		for (const dirent of subdirectories) {
 			if (dirent.isDirectory()) {
 				const subdirectoryPath = path.join(assetsDir, dirent.name)
-				const relativeDir = path.posix.join('/assets', dirent.name)
-				await generateJsonForDirectory(subdirectoryPath, relativeDir)
+				await generateJsonForDirectory(subdirectoryPath, '')
 			}
 		}
 	} catch (err) {
