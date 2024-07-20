@@ -92,6 +92,9 @@ export default {
 				fancy: 'url(cursor-default.png), auto',
 				fancyFocus: 'url(cursor-green.png), pointer',
 			},
+			scale: {
+				'-1': '-1',
+			},
 		},
 	},
 	plugins: [],
