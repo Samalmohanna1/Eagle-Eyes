@@ -1,0 +1,64 @@
+@import url('./reset.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: theme('colors.white.100');
+  background-color: theme('colors.black.300');
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: theme('colors.blue.200');
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: theme('colors.purple.200');
+}
+
+body {
+  color: theme('colors.white.200');
+  background-color: theme('colors.black.300');
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: theme('lineHeight.normal');
+  font-family: Exo2, sans-serif;
+  font-size: theme('fontSize.step-0');
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-wrap: balance;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: theme('lineHeight.loose');
+  color: theme('colors.white.300');
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+p {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
