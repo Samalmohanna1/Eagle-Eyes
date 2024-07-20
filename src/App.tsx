@@ -14,7 +14,7 @@ function App() {
 					A memory game for the detail obsessed.
 				</p>
 			</div>
-			<div className='mx-auto grid grid-cols-5 gap-4 py-space-2xl'>
+			<div className='grid grid-cols-5 gap-4 py-space-2xl'>
 				{levelOne && levelOne.length > 0 ? (
 					levelOne.map((card, index) => (
 						<Card key={index} src={card.src} level={card.level} />
