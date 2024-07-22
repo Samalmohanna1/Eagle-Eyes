@@ -15,7 +15,8 @@ async function generateJsonForDirectory(directory, relativeDir) {
 			)
 			.map((file) => ({
 				src: file,
-				level: path.basename(directory), // Add the directory name as level
+				level: path.basename(directory),
+				matched: false,
 			}))
 
 		const outputJson = path.join(

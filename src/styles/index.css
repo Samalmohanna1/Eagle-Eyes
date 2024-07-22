@@ -62,3 +62,36 @@ p {
   -ms-user-select: none;
   user-select: none;
 }
+
+.card {
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  border: 2px solid theme('colors.white.300');
+  border-radius: 6px;
+}
+
+.card .front {
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  position: absolute;
+}
+
+.flipped .front {
+  transform: rotateY(0deg);
+  border: 2px solid theme('colors.yellow.100');
+  transition-delay: 0.2s;
+}
+
+.card .back {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+}
+
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
