@@ -30,6 +30,28 @@ function App() {
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
 	}
 
+	const handleDifficultyChange = (
+		e: React.ChangeEvent<HTMLSelectElement>
+	) => {
+		const difficulty = e.target.value
+		switch (difficulty) {
+			case 'one':
+				setLevel(levelOne as CardType[])
+				break
+			case 'two':
+				setLevel(levelTwo as CardType[])
+				break
+			case 'three':
+				// setLevel(levelThree)
+				break
+			default:
+				setLevel(levelOne as CardType[])
+		}
+	}
+	useEffect(() => {
+		shuffleCards()
+	}, [level])
+
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
 			setDisabled(true)
@@ -68,8 +90,8 @@ function App() {
 	}, [cards])
 
 	return (
-		<main className='max-w-screen-2xl mx-auto'>
-			<div className='container flex flex-col md:flex-row md:justify-between items-center gap-4 border-b-2 border-white-100/20 py-space-s px-space-s'>
+		<main className='max-w-screen-2xl mx-auto px-space-s'>
+			<div className='container flex flex-col md:flex-row md:justify-between md:items-end items-center gap-4 border-b-2 border-white-100/20 py-space-s'>
 				<div className='text-center md:text-left pb-6 md:pb-0'>
 					<h1 className='text-step-3 space-x-2'>
 						{/* <span>&#129413;</span> */}
@@ -81,8 +103,22 @@ function App() {
 					</h1>
 					<p>A memory game for the detail obsessed.</p>
 				</div>
+				<div className=' text-white-100'>
+					<label htmlFor='level' className='mr-2'>
+						Level:
+					</label>
+					<select
+						id='level'
+						className='bg-black-300 border border-gray-300 rounded-md p-2'
+						onChange={handleDifficultyChange}
+					>
+						<option value='one'>One</option>
+						<option value='two'>Two</option>
+						{/* <option value='three'>Three</option> */}
+					</select>
+				</div>
 			</div>
-			<div className='grid grid-cols-4 lg:grid-cols-8 gap-4 py-space-2xl px-space-s'>
+			<div className='grid grid-cols-4 lg:grid-cols-8 gap-4 py-space-2xl'>
 				{cards && cards.length > 0 ? (
 					cards.map((card) => (
 						<Card
@@ -105,7 +141,7 @@ function App() {
 					</p>
 				)}
 			</div>
-			<div className='flex justify-between items-center fixed bottom-0 w-full py-space-2xs px-space-m bg-black-300/75 space-x-4'>
+			<div className='flex justify-between items-center fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-screen-xl py-space-2xs px-space-m bg-black-300/75 backdrop-blur-sm space-x-4'>
 				<p className='inline text-step-1'>Turns: {turns}</p>
 				<button
 					className='bg-green-100/60 text-black-300 font-black px-space-s py-space-2xs rounded-lg hover:bg-green-100 transition-all duration-300 ease-in-out'
@@ -114,6 +150,7 @@ function App() {
 					New Game
 				</button>
 			</div>
+
 			{showWinPopup && (
 				<div className='fixed inset-0 flex items-center justify-center bg-black-300/50 backdrop-blur-sm'>
 					<div className='inset-28 p-space-2xl rounded-lg text-center bg-black-200'>
