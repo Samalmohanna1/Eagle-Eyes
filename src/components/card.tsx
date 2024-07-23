@@ -22,9 +22,8 @@ const Card: React.FC<CardProps> = ({
 	const handleClick = () => {
 		if (!disabled) {
 			handleChoice(card)
-			console.log('card clicked.', card)
 		} else {
-			console.log('card disabled.')
+			// console.log('card disabled.')
 		}
 	}
 
@@ -53,7 +52,7 @@ const Card: React.FC<CardProps> = ({
 		// 	</div>
 		// </div>
 
-		<div className='card'>
+		<div className='card w-full mx-auto'>
 			<div className={flipped ? 'flipped' : ''}>
 				<img
 					className='front mx-auto'

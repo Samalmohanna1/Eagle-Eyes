@@ -11,16 +11,18 @@ function App() {
 	const [choiceOne, setChoiceOne] = useState<CardType | null>(null)
 	const [choiceTwo, setChoiceTwo] = useState<CardType | null>(null)
 	const [disabled, setDisabled] = useState(false)
+	const [showWinPopup, setShowWinPopup] = useState(false)
 
 	const shuffleCards = () => {
-		//TODO: grab 10 or 15 out of the level the create the deck
-		const shuffledCards = [...level, ...level]
+		const selectedCards = level.sort(() => 0.5 - Math.random()).slice(0, 12)
+		const shuffledCards = [...selectedCards, ...selectedCards]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({ ...card, id: Math.random(), matched: false }))
 		setChoiceOne(null)
 		setChoiceTwo(null)
 		setCards(shuffledCards)
 		setTurns(0)
+		setShowWinPopup(false)
 	}
 
 	const handleChoice = (card: CardType) => {
@@ -29,7 +31,6 @@ function App() {
 	}
 
 	useEffect(() => {
-		console.log('choices: ', choiceOne, choiceTwo)
 		if (choiceOne && choiceTwo) {
 			setDisabled(true)
 			if (choiceOne.src === choiceTwo.src) {
@@ -60,19 +61,28 @@ function App() {
 		shuffleCards()
 	}, [])
 
+	useEffect(() => {
+		if (cards.length > 0 && cards.every((card) => card.matched)) {
+			setTimeout(() => setShowWinPopup(true), 500)
+		}
+	}, [cards])
+
 	return (
-		<main className='max-w-screen-lg mx-auto'>
-			<div className='container text-center border-b-2 border-white-100/20 pb-4'>
-				<h1 className='text-step-4 space-x-2'>
-					<span>&#129413;</span>
-					<span className='text-step-5 font-black'>Eagle Eyes</span>
-					<span className='inline-block -scale-x-1'> &#129413;</span>
-				</h1>
-				<p className='read-the-docs'>
-					A memory game for the detail obsessed.
-				</p>
+		<main className='max-w-screen-2xl mx-auto'>
+			<div className='container flex flex-col md:flex-row md:justify-between items-center gap-4 border-b-2 border-white-100/20 py-space-s px-space-s'>
+				<div className='text-center md:text-left pb-6 md:pb-0'>
+					<h1 className='text-step-3 space-x-2'>
+						{/* <span>&#129413;</span> */}
+						<span className='font-black'>Eagle Eyes</span>
+						<span className='inline-block -scale-x-1'>
+							{' '}
+							&#129413;
+						</span>
+					</h1>
+					<p>A memory game for the detail obsessed.</p>
+				</div>
 			</div>
-			<div className='grid grid-cols-3 md:grid-cols-5 gap-4 py-space-2xl px-space-s'>
+			<div className='grid grid-cols-4 lg:grid-cols-8 gap-4 py-space-2xl px-space-s'>
 				{cards && cards.length > 0 ? (
 					cards.map((card) => (
 						<Card
@@ -95,7 +105,7 @@ function App() {
 					</p>
 				)}
 			</div>
-			<div className='sticky flex justify-between items-center bottom-0 w-full py-space-2xs px-space-m bg-black-300/75 space-x-4'>
+			<div className='flex justify-between items-center fixed bottom-0 w-full py-space-2xs px-space-m bg-black-300/75 space-x-4'>
 				<p className='inline text-step-1'>Turns: {turns}</p>
 				<button
 					className='bg-green-100/60 text-black-300 font-black px-space-s py-space-2xs rounded-lg hover:bg-green-100 transition-all duration-300 ease-in-out'
@@ -104,6 +114,23 @@ function App() {
 					New Game
 				</button>
 			</div>
+			{showWinPopup && (
+				<div className='fixed inset-0 flex items-center justify-center bg-black-300/50 backdrop-blur-sm'>
+					<div className='inset-28 p-space-2xl rounded-lg text-center bg-black-200'>
+						<p className='text-step-5'>&#127881;</p>
+						<h2 className='text-step-2 font-bold mb-4'>
+							Nicely done!
+						</h2>
+						<p className='mb-4'>Turns taken: {turns}</p>
+						<button
+							className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300'
+							onClick={() => shuffleCards()}
+						>
+							Play Again
+						</button>
+					</div>
+				</div>
+			)}
 		</main>
 	)
 }

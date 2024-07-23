@@ -70,7 +70,6 @@ p {
 .card img {
   width: 100%;
   display: block;
-  border: 2px solid theme('colors.white.300');
   border-radius: 6px;
 }
 
@@ -82,7 +81,7 @@ p {
 
 .flipped .front {
   transform: rotateY(0deg);
-  border: 2px solid theme('colors.yellow.100');
+  border: 2px solid theme('colors.white.300');
   transition-delay: 0.2s;
 }
 
