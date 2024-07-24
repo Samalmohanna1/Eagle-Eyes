@@ -60,8 +60,8 @@ const Card: React.FC<CardProps> = ({
 					alt={src}
 				/>
 				<img
-					className='back mx-auto'
-					src={`/assets/card-backs/card-back-8.svg`}
+					className='back mx-auto bg-purple-100/55'
+					src={`/assets/card-backs/card-back-5.svg`}
 					alt='back of card.'
 					onClick={handleClick}
 				/>
