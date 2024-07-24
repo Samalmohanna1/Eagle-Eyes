@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import levelOne from './utils/level-one.json'
 import levelTwo from './utils/level-two.json'
+import levelThree from './utils/level-three.json'
 import Card from './components/card'
 import { CardType } from './types'
 
@@ -42,7 +43,7 @@ function App() {
 				setLevel(levelTwo as CardType[])
 				break
 			case 'three':
-				// setLevel(levelThree)
+				setLevel(levelThree as CardType[])
 				break
 			default:
 				setLevel(levelOne as CardType[])
@@ -114,7 +115,7 @@ function App() {
 					>
 						<option value='one'>One</option>
 						<option value='two'>Two</option>
-						{/* <option value='three'>Three</option> */}
+						<option value='three'>Three</option>
 					</select>
 				</div>
 			</div>
