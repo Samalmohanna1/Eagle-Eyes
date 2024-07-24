@@ -27,7 +27,7 @@ function App() {
 	}
 
 	const shuffleCards = () => {
-		const selectedCards = level.sort(() => 0.5 - Math.random()).slice(0, 1)
+		const selectedCards = level.sort(() => 0.5 - Math.random()).slice(0, 12)
 		const shuffledCards = [...selectedCards, ...selectedCards]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({ ...card, id: Math.random(), matched: false }))
