@@ -23,20 +23,5 @@
     "src": "card-back-5.svg",
     "level": "card-backs",
     "matched": false
-  },
-  {
-    "src": "card-back-6.svg",
-    "level": "card-backs",
-    "matched": false
-  },
-  {
-    "src": "card-back-7.svg",
-    "level": "card-backs",
-    "matched": false
-  },
-  {
-    "src": "card-back-8.svg",
-    "level": "card-backs",
-    "matched": false
   }
 ]

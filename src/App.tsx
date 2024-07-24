@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import levelOne from './utils/level-one.json'
 import levelTwo from './utils/level-two.json'
 import levelThree from './utils/level-three.json'
-import Card from './components/card'
+import Card from './components/Card'
 import { CardType } from './types'
+import Confetti from 'react-confetti'
 
 function App() {
 	const [level, setLevel] = useState<CardType[]>(levelOne as CardType[])
@@ -13,6 +14,17 @@ function App() {
 	const [choiceTwo, setChoiceTwo] = useState<CardType | null>(null)
 	const [disabled, setDisabled] = useState(false)
 	const [showWinPopup, setShowWinPopup] = useState(false)
+	const [windowSize, setWindowSize] = useState({
+		width: 0,
+		height: 0,
+	})
+
+	const handleWindowResize = () => {
+		setWindowSize({
+			width: window.innerWidth,
+			height: window.innerHeight,
+		})
+	}
 
 	const shuffleCards = () => {
 		const selectedCards = level.sort(() => 0.5 - Math.random()).slice(0, 12)
@@ -49,6 +61,11 @@ function App() {
 				setLevel(levelOne as CardType[])
 		}
 	}
+
+	useEffect(() => {
+		window.onresize = () => handleWindowResize()
+	}, [windowSize])
+
 	useEffect(() => {
 		shuffleCards()
 	}, [level])
@@ -86,6 +103,7 @@ function App() {
 
 	useEffect(() => {
 		if (cards.length > 0 && cards.every((card) => card.matched)) {
+			handleWindowResize()
 			setTimeout(() => setShowWinPopup(true), 500)
 		}
 	}, [cards])
@@ -154,6 +172,10 @@ function App() {
 
 			{showWinPopup && (
 				<div className='fixed inset-0 flex items-center justify-center bg-black-300/50 backdrop-blur-sm'>
+					<Confetti
+						width={windowSize.width}
+						height={windowSize.height}
+					/>
 					<div className='inset-28 p-space-2xl rounded-lg text-center bg-black-200'>
 						<p className='text-step-5'>&#127881;</p>
 						<h2 className='text-step-2 font-bold mb-4'>
