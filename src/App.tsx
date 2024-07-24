@@ -15,8 +15,8 @@ function App() {
 	const [disabled, setDisabled] = useState(false)
 	const [showWinPopup, setShowWinPopup] = useState(false)
 	const [windowSize, setWindowSize] = useState({
-		width: 0,
-		height: 0,
+		width: 500,
+		height: 1000,
 	})
 
 	const handleWindowResize = () => {
@@ -27,7 +27,7 @@ function App() {
 	}
 
 	const shuffleCards = () => {
-		const selectedCards = level.sort(() => 0.5 - Math.random()).slice(0, 12)
+		const selectedCards = level.sort(() => 0.5 - Math.random()).slice(0, 1)
 		const shuffledCards = [...selectedCards, ...selectedCards]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({ ...card, id: Math.random(), matched: false }))
