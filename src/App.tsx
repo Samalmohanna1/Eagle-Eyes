@@ -122,8 +122,8 @@ function App() {
 
 	return (
 		<main className='max-w-screen-2xl mx-auto px-space-s'>
-			<div className='container flex flex-col md:flex-row md:justify-between md:items-end items-center gap-4 border-b-2 border-white-100/20 py-space-s'>
-				<div className='text-center md:text-left pb-6 md:pb-0'>
+			<div className='container flex flex-col md:flex-row md:justify-between gap-4 border-b-2 border-white-100/20 py-space-s'>
+				<div className='pb-6 md:pb-0'>
 					<h1 className='text-step-3 space-x-2'>
 						{/* <span>&#129413;</span> */}
 						<span className='font-black'>Eagle Eyes</span>
@@ -134,9 +134,9 @@ function App() {
 					</h1>
 					<p>A memory game for the detail obsessed.</p>
 				</div>
-				<div className=' text-white-100 flex flex-col justify-between gap-4'>
+				<div className=' text-white-100 w-full flex md:flex-col md:w-52 justify-between items-end gap-4'>
 					<button
-						className='border-2 border-white-100/60 px-space-s py-space-2xs rounded-lg hover:border-white-100 transition-all duration-300 ease-in-out'
+						className='max-h-12 border-2 border-white-100/60 px-space-s py-space-2xs rounded-lg hover:border-white-100 transition-all duration-300 ease-in-out'
 						onClick={() => {
 							setShowSettings(true)
 						}}
@@ -199,7 +199,7 @@ function App() {
 					</p>
 				)}
 			</div>
-			<div className='flex justify-between items-center fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-screen-xl py-space-2xs px-space-m bg-black-300/75 backdrop-blur-sm space-x-4'>
+			<div className='flex justify-between items-center fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-screen-xl py-space-2xs px-space-m bg-black-300/75 backdrop-blur-sm space-x-4 rounded-lg'>
 				<p className='inline text-step-1'>Turns: {turns}</p>
 				<button
 					className='bg-green-100/60 text-black-300 font-black px-space-s py-space-2xs rounded-lg hover:bg-green-100 transition-all duration-300 ease-in-out'
