@@ -5,6 +5,7 @@ import levelThree from './utils/level-three.json'
 import Card from './components/Card'
 import { CardType } from './types'
 import Confetti from 'react-confetti'
+import { motion } from 'framer-motion'
 
 function App() {
 	const [level, setLevel] = useState<CardType[]>(levelOne as CardType[])
@@ -131,28 +132,42 @@ function App() {
 						className='bg-black-300 border border-gray-300 rounded-md p-2'
 						onChange={handleDifficultyChange}
 					>
-						<option value='one'>One</option>
-						<option value='two'>Two</option>
-						<option value='three'>Three</option>
+						<option value='one'>Geometric Shapes</option>
+						<option value='two'>Organic Shapes</option>
+						<option value='three'>Fonts</option>
 					</select>
 				</div>
 			</div>
 			<div className='grid grid-cols-4 lg:grid-cols-8 gap-4 py-space-2xl'>
 				{cards && cards.length > 0 ? (
-					cards.map((card) => (
-						<Card
+					cards.map((card, i) => (
+						<motion.div
 							key={card.id}
-							src={card.src}
-							level={card.level}
-							id={card.id}
-							handleChoice={handleChoice}
-							flipped={
-								card.id === choiceOne?.id ||
-								card.id === choiceTwo?.id ||
-								card.matched
-							}
-							disabled={disabled}
-						/>
+							initial={{
+								opacity: 0,
+								translateX: -50,
+								translateY: -50,
+							}}
+							animate={{
+								opacity: 1,
+								translateX: 0,
+								translateY: 0,
+							}}
+							transition={{ duration: 0.15, delay: i * 0.1 }}
+						>
+							<Card
+								src={card.src}
+								level={card.level}
+								id={card.id}
+								handleChoice={handleChoice}
+								flipped={
+									card.id === choiceOne?.id ||
+									card.id === choiceTwo?.id ||
+									card.matched
+								}
+								disabled={disabled}
+							/>
+						</motion.div>
 					))
 				) : (
 					<p className='col-span-5 text-center'>
