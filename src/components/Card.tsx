@@ -8,6 +8,7 @@ interface CardProps {
 	handleChoice: (card: CardType) => void
 	flipped: boolean
 	disabled: boolean
+	cardBack: string
 }
 
 const Card: React.FC<CardProps> = ({
@@ -17,6 +18,7 @@ const Card: React.FC<CardProps> = ({
 	handleChoice,
 	flipped,
 	disabled,
+	cardBack,
 }) => {
 	const card = { src, level, id, matched: false, flipped, disabled }
 	const handleClick = () => {
@@ -52,7 +54,7 @@ const Card: React.FC<CardProps> = ({
 		// 	</div>
 		// </div>
 
-		<div className='card w-full mx-auto'>
+		<div className='card w-full mx-auto hover:cursor-pointer'>
 			<div className={flipped ? 'flipped' : ''}>
 				<img
 					className='front mx-auto'
@@ -61,7 +63,7 @@ const Card: React.FC<CardProps> = ({
 				/>
 				<img
 					className='back mx-auto bg-purple-100/55'
-					src={`/assets/card-backs/card-back-5.svg`}
+					src={`/assets/card-backs/${cardBack}`}
 					alt='back of card.'
 					onClick={handleClick}
 				/>

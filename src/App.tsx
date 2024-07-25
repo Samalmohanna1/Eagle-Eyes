@@ -6,6 +6,7 @@ import Card from './components/Card'
 import { CardType } from './types'
 import Confetti from 'react-confetti'
 import { motion } from 'framer-motion'
+import Settings from './components/Settings'
 
 function App() {
 	const [level, setLevel] = useState<CardType[]>(levelOne as CardType[])
@@ -15,10 +16,20 @@ function App() {
 	const [choiceTwo, setChoiceTwo] = useState<CardType | null>(null)
 	const [disabled, setDisabled] = useState(false)
 	const [showWinPopup, setShowWinPopup] = useState(false)
+	const [showSettings, setShowSettings] = useState(false)
 	const [windowSize, setWindowSize] = useState({
 		width: 0,
 		height: 0,
 	})
+	const [cardBack, setCardBack] = useState('card-back-5.svg')
+
+	const handleCardBackChange = (src: string) => {
+		setCardBack(src)
+	}
+
+	const closeSettings = () => {
+		setShowSettings(false)
+	}
 
 	const handleWindowResize = () => {
 		setWindowSize({
@@ -123,19 +134,31 @@ function App() {
 					</h1>
 					<p>A memory game for the detail obsessed.</p>
 				</div>
-				<div className=' text-white-100'>
-					<label htmlFor='level' className='mr-2'>
-						Level:
-					</label>
-					<select
-						id='level'
-						className='bg-black-300 border border-gray-300 rounded-md p-2'
-						onChange={handleDifficultyChange}
+				<div className=' text-white-100 flex flex-col justify-between gap-4'>
+					<button
+						className='border-2 border-white-100/60 px-space-s py-space-2xs rounded-lg hover:border-white-100 transition-all duration-300 ease-in-out'
+						onClick={() => {
+							setShowSettings(true)
+						}}
 					>
-						<option value='one'>Geometric Shapes</option>
-						<option value='two'>Organic Shapes</option>
-						<option value='three'>Fonts</option>
-					</select>
+						Settings
+					</button>
+					<div>
+						<label htmlFor='level' className='block text-step--1'>
+							Level:
+						</label>
+						<select
+							id='level'
+							className='bg-black-300 border-2 border-white-100/60 px-space-s py-space-2xs rounded-lg hover:border-white-100 transition-all duration-300 ease-in-out hover:cursor-pointer'
+							onChange={handleDifficultyChange}
+						>
+							<option className='py-space-s' value='one'>
+								Geometric Shapes
+							</option>
+							<option value='two'>Organic Shapes</option>
+							<option value='three'>Fonts</option>
+						</select>
+					</div>
 				</div>
 			</div>
 			<div className='grid grid-cols-4 lg:grid-cols-8 gap-4 py-space-2xl'>
@@ -153,7 +176,7 @@ function App() {
 								translateX: 0,
 								translateY: 0,
 							}}
-							transition={{ duration: 0.15, delay: i * 0.1 }}
+							transition={{ duration: 0.12, delay: i * 0.1 }}
 						>
 							<Card
 								src={card.src}
@@ -166,6 +189,7 @@ function App() {
 									card.matched
 								}
 								disabled={disabled}
+								cardBack={cardBack}
 							/>
 						</motion.div>
 					))
@@ -191,20 +215,38 @@ function App() {
 						width={windowSize.width}
 						height={windowSize.height}
 					/>
-					<div className='inset-28 p-space-2xl rounded-lg text-center bg-black-200'>
-						<p className='text-step-5'>&#127881;</p>
-						<h2 className='text-step-2 font-bold mb-4'>
-							Nicely done!
-						</h2>
-						<p className='mb-4'>Turns taken: {turns}</p>
-						<button
-							className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300'
-							onClick={() => shuffleCards()}
-						>
-							Play Again
-						</button>
+					<div className='fixed md:inset-28 inset-12 md:p-space-2xl p-space-m rounded-lg bg-black-200 border-2 border-green-100/75'>
+						<div className='max-w-screen-sm flex flex-col gap-8 justify-center mx-auto text-center h-full'>
+							<p className='text-step-3 font-black leading-none'>
+								Winner Winner
+								<span className='text-step-5'>
+									&#x1F414; &#x1F37D;
+								</span>
+							</p>
+							<div className='rounded-md px-space-s py-space-l space-y-4 bg-black-300/50'>
+								<p className='text-step--1 font-bold'>
+									Number of Turns:
+								</p>
+								<span className='inline-block ml-2 p-space-s border-4 border-white-100/75 rounded-md text-step-5 font-black'>
+									{turns}
+								</span>
+							</div>
+
+							<button
+								className='bg-green-100/60 text-black-300 font-black px-space-s py-space-2xs rounded-lg hover:bg-green-100 transition-all duration-300 ease-in-out'
+								onClick={() => shuffleCards()}
+							>
+								Play Again
+							</button>
+						</div>
 					</div>
 				</div>
+			)}
+			{showSettings && (
+				<Settings
+					onClose={closeSettings}
+					onCardBackChange={handleCardBackChange}
+				/>
 			)}
 		</main>
 	)
