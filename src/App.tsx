@@ -210,13 +210,13 @@ function App() {
 			</div>
 
 			{showWinPopup && (
-				<div className='fixed inset-0 flex items-center justify-center bg-black-300/50 backdrop-blur-sm'>
+				<div className='fixed inset-0 bg-black-300/50 backdrop-blur-sm flex flex-col justify-center items-center'>
 					<Confetti
 						width={windowSize.width}
 						height={windowSize.height}
 					/>
-					<div className='fixed md:inset-28 inset-12 md:p-space-2xl p-space-m rounded-lg bg-black-200 border-2 border-green-100/75'>
-						<div className='max-w-screen-sm flex flex-col gap-8 justify-center mx-auto text-center h-full'>
+					<div className='max-w-screen-sm md:p-space-2xl p-space-m rounded-lg bg-black-200 border-2 border-green-100/75'>
+						<div className='flex flex-col gap-8 justify-center mx-auto text-center h-full'>
 							<p className='text-step-3 font-black leading-none'>
 								Winner Winner
 								<span className='text-step-5'>
