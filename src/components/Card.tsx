@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { CardType } from '../types'
 
 interface CardProps {
@@ -9,6 +9,7 @@ interface CardProps {
 	flipped: boolean
 	disabled: boolean
 	cardBack: string
+	matched: boolean
 }
 
 const Card: React.FC<CardProps> = ({
@@ -19,41 +20,29 @@ const Card: React.FC<CardProps> = ({
 	flipped,
 	disabled,
 	cardBack,
+	matched,
 }) => {
-	const card = { src, level, id, matched: false, flipped, disabled }
+	const card = { src, level, id, matched, flipped, disabled }
+	const [showLabel, setShowLabel] = useState(false)
+
+	useEffect(() => {
+		if (flipped && matched) {
+			const timeout = setTimeout(() => {
+				setShowLabel(true)
+			}, 200)
+			return () => clearTimeout(timeout)
+		} else {
+			setShowLabel(false)
+		}
+	}, [flipped, matched])
+
 	const handleClick = () => {
 		if (!disabled) {
 			handleChoice(card)
-		} else {
-			// console.log('card disabled.')
 		}
 	}
 
 	return (
-		// <div className='relative w-32 h-32'>
-		// 	<div
-		// 		className={`relative w-full h-full transition-transform transform ${
-		// 			flipped ? 'rotate-y-180' : ''
-		// 		}`}
-		// 	>
-		// 		<div className='absolute w-full h-full backface-hidden'>
-		// 			<img
-		// 				className='w-full h-full rounded-xl border-2 border-white-100/20 transition-all duration-300 ease-in-out'
-		// 				src={`/assets/${level}/${src}`}
-		// 				alt={src}
-		// 			/>
-		// 		</div>
-		// 		<div className='absolute w-full h-full backface-hidden transform rotate-y-180'>
-		// 			<img
-		// 				className='w-full h-full rounded-xl border-2 border-white-100/20 transition-all duration-300 ease-in-out'
-		// 				src={`/assets/level-one/Abstract-Circle-Sharp-Half--Streamline-Geometric-Shapes.svg`}
-		// 				alt='back of card'
-		// 				onClick={handleClick}
-		// 			/>
-		// 		</div>
-		// 	</div>
-		// </div>
-
 		<div className='card w-full mx-auto hover:cursor-pointer'>
 			<div className={flipped ? 'flipped' : ''}>
 				<img
@@ -67,6 +56,17 @@ const Card: React.FC<CardProps> = ({
 					alt='back of card.'
 					onClick={handleClick}
 				/>
+				{level === 'level-three' && (
+					<p
+						className={`absolute opacity-0 bottom--1 bg-white-100 w-full text-step--1 text-black-300 font-bold text-center transform transition-all duration-500 ease-in-out ${
+							showLabel
+								? 'opacity-100 bottom-0'
+								: 'opacity-0 bottom--1'
+						}`}
+					>
+						{src.split('-')[0]}
+					</p>
+				)}
 			</div>
 		</div>
 	)

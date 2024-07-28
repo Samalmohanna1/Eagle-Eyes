@@ -190,6 +190,7 @@ function App() {
 								}
 								disabled={disabled}
 								cardBack={cardBack}
+								matched={card.matched}
 							/>
 						</motion.div>
 					))
